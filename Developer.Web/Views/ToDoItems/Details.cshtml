@@ -1,0 +1,48 @@
+﻿@model Developer.Entity.ToDoItem
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+
+<div class="panel panel-info">
+    <div class="panel-heading"><h2>Details</h2></div>
+    <div class="panel-body"><div>
+    <h4>Selected ToDo Item infos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+    </dl>
+    <div class="panel panel-default">
+        <div class="panel-heading"> <h4>Tasks of @Html.DisplayFor(model => model.Description)</h4></div>
+        <div class="panel-body">
+            @Html.Partial("~/Views/TaskItems/Index.cshtml", Model.TaskItems.Where(n => !n.IsDeleted), new ViewDataDictionary { { "TodoItemId", Model.Id } })
+        </div>
+    </div>
+
+   
+</div></div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index", "ToDoItems", new { TodoItemId = ViewBag.TodoItemId }, new { @class = "btn btn-default" })
+</p>
