@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Developer.Data.Repo;
@@ -25,7 +26,7 @@ namespace Developer.Web.Controllers
         // GET: ToDoItems
         public ActionResult Index()
         {
-            return View(todoItemRepo.Table.FindAll(m=>!m.IsDeleted));
+            return View(todoItemRepo.Table.AsQueryable().Where(m=>!m.IsDeleted).OrderBy(n=>n.CreateDate));
         }
 
         // GET: ToDoItems/Details/5
