@@ -26,11 +26,11 @@ namespace Developer.NotificationSender
             var toSendData = GetReadyData();
 
             INotificationSender objSender;
-            objSender = NotificationFactory.SelectChannel("email");
-            Email(objSender, toSendData);
+            objSender = NotificationFactory.SelectChannel(NotificationType.Email);
+            Sender(objSender, toSendData);
         }
 
-        private void Email(INotificationSender objSender, List<Reminder> toSendData)
+        private void Sender(INotificationSender objSender, List<Reminder> toSendData)
         {
             foreach (var item in toSendData)
             {
@@ -59,9 +59,15 @@ namespace Developer.NotificationSender
         private void MarkAsSent(Reminder reminder)
         {
             reminder.IsCompleted = true;
+            reminder.ModifiedDate = DateTime.Now;
             repo.Update(reminder);
         }
 
+    }
+
+    public enum NotificationType
+    {
+        Email
     }
 }
 

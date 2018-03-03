@@ -2,12 +2,17 @@
 {
     public class NotificationFactory
     {
-        static public INotificationSender SelectChannel(string channel)
+        static public INotificationSender SelectChannel(NotificationType channel)
         {
             INotificationSender objSelected = null;
-            if (channel == "email")
+            switch (channel)
             {
-                objSelected = new EmailSender();
+                case NotificationType.Email:
+                    objSelected = new EmailSender();
+                    break;
+                default:
+                    objSelected = new EmailSender();
+                    break;
             }
             return objSelected;
         }
